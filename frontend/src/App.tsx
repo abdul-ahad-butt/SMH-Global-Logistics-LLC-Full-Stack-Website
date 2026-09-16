@@ -1,8 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
-import { ProtectedRoute } from './components/auth/ProtectedRoute.js'
 import PublicLayout from './layouts/PublicLayout.js'
-import AdminLayout from './layouts/AdminLayout.js'
 
 // Public pages (lazy loaded)
 const Home = lazy(() => import('./pages/Home.js'))
@@ -15,17 +13,6 @@ const FAQ = lazy(() => import('./pages/FAQ.js'))
 const Privacy = lazy(() => import('./pages/Privacy.js'))
 const Terms = lazy(() => import('./pages/Terms.js'))
 const NotFound = lazy(() => import('./pages/NotFound.js'))
-
-// Admin pages (lazy loaded)
-const AdminLogin = lazy(() => import('./pages/admin/Login.js'))
-const AdminDashboard = lazy(() => import('./pages/admin/Dashboard.js'))
-const AdminQuotes = lazy(() => import('./pages/admin/Quotes.js'))
-const AdminQuoteDetail = lazy(() => import('./pages/admin/QuoteDetail.js'))
-const AdminShipments = lazy(() => import('./pages/admin/Shipments.js'))
-const AdminShipmentDetail = lazy(() => import('./pages/admin/ShipmentDetail.js'))
-const AdminMessages = lazy(() => import('./pages/admin/Messages.js'))
-const AdminContent = lazy(() => import('./pages/admin/Content.js'))
-const AdminSettings = lazy(() => import('./pages/admin/Settings.js'))
 
 function PageLoader() {
   return (
@@ -52,28 +39,6 @@ export default function App() {
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="*" element={<NotFound />} />
-          </Route>
-
-          {/* Admin Login (no layout) */}
-          <Route path="/admin/login" element={<AdminLogin />} />
-
-          {/* Admin Protected Routes */}
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute>
-                <AdminLayout />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<AdminDashboard />} />
-            <Route path="quotes" element={<AdminQuotes />} />
-            <Route path="quotes/:id" element={<AdminQuoteDetail />} />
-            <Route path="shipments" element={<AdminShipments />} />
-            <Route path="shipments/:id" element={<AdminShipmentDetail />} />
-            <Route path="messages" element={<AdminMessages />} />
-            <Route path="content" element={<AdminContent />} />
-            <Route path="settings" element={<AdminSettings />} />
           </Route>
         </Routes>
       </Suspense>

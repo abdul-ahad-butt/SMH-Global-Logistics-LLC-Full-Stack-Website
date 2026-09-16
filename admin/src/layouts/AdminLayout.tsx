@@ -2,18 +2,18 @@ import { useState } from 'react'
 import { Outlet, NavLink, useNavigate } from 'react-router-dom'
 import {
   LayoutDashboard, FileText, Package, MessageSquare, Globe,
-  Settings, LogOut, Menu, X, ChevronRight, Truck
+  Settings, LogOut, Menu, X, Truck
 } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth.js'
 import toast from 'react-hot-toast'
 
 const navItems = [
-  { to: '/admin', label: 'Dashboard', icon: LayoutDashboard, exact: true },
-  { to: '/admin/quotes', label: 'Quote Requests', icon: FileText },
-  { to: '/admin/shipments', label: 'Shipments', icon: Package },
-  { to: '/admin/messages', label: 'Messages', icon: MessageSquare },
-  { to: '/admin/content', label: 'Website Content', icon: Globe },
-  { to: '/admin/settings', label: 'Settings', icon: Settings },
+  { to: '/', label: 'Dashboard', icon: LayoutDashboard, exact: true },
+  { to: '/quotes', label: 'Quote Requests', icon: FileText },
+  { to: '/shipments', label: 'Shipments', icon: Package },
+  { to: '/messages', label: 'Messages', icon: MessageSquare },
+  { to: '/content', label: 'Website Content', icon: Globe },
+  { to: '/settings', label: 'Settings', icon: Settings },
 ]
 
 export default function AdminLayout() {
@@ -24,7 +24,7 @@ export default function AdminLayout() {
   const handleLogout = async () => {
     await logout()
     toast.success('Logged out successfully')
-    navigate('/admin/login')
+    navigate('/login')
   }
 
   const Sidebar = ({ mobile = false }: { mobile?: boolean }) => (
