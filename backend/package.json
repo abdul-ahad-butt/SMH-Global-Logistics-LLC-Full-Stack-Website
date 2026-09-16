@@ -1,0 +1,24 @@
+{
+  "name": "smh-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --local",
+    "build": "tsc",
+    "deploy": "wrangler deploy",
+    "migrate:local": "wrangler d1 execute smh-db --local --file=./migrations/0001_initial.sql",
+    "migrate:prod": "wrangler d1 execute smh-db --file=./migrations/0001_initial.sql",
+    "seed": "wrangler d1 execute smh-db --local --file=./migrations/0002_seed.sql",
+    "setup:admin": "node --loader ts-node/esm scripts/createAdmin.ts"
+  },
+  "dependencies": {
+    "hono": "^4.5.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240925.0",
+    "typescript": "^5.5.4",
+    "wrangler": "^3.78.0"
+  }
+}

@@ -1,0 +1,28 @@
+name = "smh-api"
+main = "src/index.ts"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+API_ALLOWED_ORIGINS = "http://localhost:5173"
+
+# ── D1 Database ──────────────────────────────────────────────────────────────
+[[d1_databases]]
+binding = "DB"
+database_name = "smh-db"
+database_id = "local-dev"   # Replace with real ID after `wrangler d1 create smh-db`
+
+# ── Local dev settings ───────────────────────────────────────────────────────
+[dev]
+port = 8787
+local_protocol = "http"
+
+# ── Production environment ───────────────────────────────────────────────────
+[env.production]
+name = "smh-api-production"
+vars = { API_ALLOWED_ORIGINS = "https://your-site.pages.dev" }
+
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "smh-db"
+database_id = "REPLACE_WITH_PROD_D1_ID"
