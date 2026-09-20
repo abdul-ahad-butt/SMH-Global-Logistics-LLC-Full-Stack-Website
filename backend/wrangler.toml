@@ -5,7 +5,7 @@ compatibility_flags = ["nodejs_compat"]
 account_id = "3426d738ed134463fd121ff0e9b95648"
 
 [vars]
-API_ALLOWED_ORIGINS = "http://localhost:5173, https://smh-global-logistics-llc-full-stack-website.pages.dev"
+API_ALLOWED_ORIGINS = "http://localhost:5173, https://smh-global-logistics-llc-full-stack-website.pages.dev, https://smh-admin.pages.dev"
 
 # ── D1 Database ──────────────────────────────────────────────────────────────
 [[d1_databases]]
@@ -21,7 +21,7 @@ local_protocol = "http"
 # ── Production environment ───────────────────────────────────────────────────
 [env.production]
 name = "smh-api-production"
-vars = { API_ALLOWED_ORIGINS = "https://smh-global-logistics-llc-full-stack-website.pages.dev" }
+vars = { API_ALLOWED_ORIGINS = "https://smh-global-logistics-llc-full-stack-website.pages.dev, https://smh-admin.pages.dev" }
 
 [[env.production.d1_databases]]
 binding = "DB"
