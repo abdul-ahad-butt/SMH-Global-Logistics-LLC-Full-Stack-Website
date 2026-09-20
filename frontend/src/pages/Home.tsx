@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion, Variants } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import {
   ArrowRight, Shield, CheckCircle, Package, Thermometer,
@@ -6,15 +6,15 @@ import {
 } from 'lucide-react'
 
 // Animation variants
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
-  visible: (i = 0) => ({
+  visible: (i: number = 0) => ({
     opacity: 1, y: 0,
     transition: { delay: i * 0.1, duration: 0.5, ease: 'easeOut' }
   }),
 }
 
-const stagger = {
+const stagger: Variants = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.1 } },
 }

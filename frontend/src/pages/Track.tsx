@@ -31,7 +31,6 @@ function formatDate(d: string | null | undefined) {
 
 export default function Track() {
   const [searchParams] = useSearchParams()
-  const [trackingNum, setTrackingNum] = useState(searchParams.get('q') ?? '')
   const [inputVal, setInputVal] = useState(searchParams.get('q') ?? '')
   const [shipment, setShipment] = useState<PublicShipment | null>(null)
   const [error, setError] = useState('')
@@ -46,7 +45,6 @@ export default function Track() {
     try {
       const data = await shipmentsApi.track(num)
       setShipment(data)
-      setTrackingNum(num)
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Tracking number not found.'
       setError(msg)
