@@ -43,6 +43,6 @@ export function rateLimit(maxRequests = MAX_REQUESTS, windowMs = WINDOW_MS) {
       .run()
       .catch(() => {});
 
-    await next();
+    return await next();
   };
 }

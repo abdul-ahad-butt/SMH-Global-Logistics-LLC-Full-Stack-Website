@@ -171,7 +171,7 @@ quotes.patch('/admin/:id', authMiddleware, async (c) => {
   if (updates.length === 0) return badRequest('No fields to update');
 
   updates.push("updated_at = datetime('now')");
-  params.push(id);
+  params.push(id as string);
 
   await db
     .prepare(`UPDATE quote_requests SET ${updates.join(', ')} WHERE id = ? AND deleted_at IS NULL`)

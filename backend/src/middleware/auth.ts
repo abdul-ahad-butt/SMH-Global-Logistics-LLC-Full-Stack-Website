@@ -32,7 +32,7 @@ export async function authMiddleware(c: Context<{ Bindings: Env }>, next: Next) 
   c.set('adminEmail' as never, session.email);
   c.set('sessionId' as never, session.id);
 
-  await next();
+  return await next();
 }
 
 export function setSessionCookie(sessionId: string, isProduction: boolean): string {

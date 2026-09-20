@@ -4,11 +4,11 @@ import type { Env } from './types/env.js';
 import { authMiddleware } from './middleware/auth.js';
 import { rateLimit } from './middleware/rateLimit.js';
 import { loginSchema, contactSchema, quoteSchema, updateQuoteSchema, updateMessageSchema, createShipmentSchema, updateShipmentSchema, addEventSchema, updateContentSchema, paginationSchema } from './utils/validation.js';
-import { verifyPassword, hashPassword } from './utils/crypto.js';
+import { verifyPassword } from './utils/crypto.js';
 import { generateSessionId, generateQuoteId, generateTrackingNumber } from './utils/id.js';
 import { setSessionCookie, clearSessionCookie } from './middleware/auth.js';
 import {
-  ok, created, badRequest, notFound, paginated, serverError, unauthorized, tooManyRequests
+  ok, created, badRequest, notFound, paginated, serverError, unauthorized
 } from './utils/response.js';
 import type { QuoteRequest, ContactMessage, Shipment, ShipmentEvent, SiteContent } from './types/index.js';
 
@@ -40,7 +40,7 @@ app.notFound(() =>
 );
 
 // ── Health ────────────────────────────────────────────────────────────────────
-app.get('/api/health', (c) =>
+app.get('/api/health', (_c) =>
   ok({ status: 'ok', timestamp: new Date().toISOString() })
 );
 
@@ -139,7 +139,7 @@ app.patch('/api/admin/quotes/:id', authMiddleware, async (c) => {
   if (data.status !== undefined) { updates.push('status = ?'); params.push(data.status); }
   if (data.internal_notes !== undefined) { updates.push('internal_notes = ?'); params.push(data.internal_notes); }
   if (updates.length === 0) return badRequest('No fields to update');
-  updates.push("updated_at = datetime('now')"); params.push(c.req.param('id'));
+  updates.push("updated_at = datetime('now')"); params.push(c.req.param('id') as string);
   await c.env.DB.prepare(`UPDATE quote_requests SET ${updates.join(', ')} WHERE id = ? AND deleted_at IS NULL`).bind(...params).run();
   const updated = await c.env.DB.prepare('SELECT * FROM quote_requests WHERE id = ?').bind(c.req.param('id')).first<QuoteRequest>();
   return ok(updated);
@@ -259,7 +259,7 @@ app.patch('/api/admin/shipments/:id', authMiddleware, async (c) => {
   const fields = ['customer_name','customer_email','origin','destination','freight_type','pickup_date','estimated_delivery','current_status','notes'] as const;
   for (const f of fields) { if (data[f] !== undefined) { updates.push(`${f} = ?`); params.push((data[f] as string|null|undefined) ?? null); } }
   if (updates.length === 0) return badRequest('No fields to update');
-  updates.push("updated_at = datetime('now')"); params.push(c.req.param('id'));
+  updates.push("updated_at = datetime('now')"); params.push(c.req.param('id') as string);
   await c.env.DB.prepare(`UPDATE shipments SET ${updates.join(', ')} WHERE id = ? AND deleted_at IS NULL`).bind(...params).run();
   const updated = await c.env.DB.prepare('SELECT * FROM shipments WHERE id = ?').bind(c.req.param('id')).first<Shipment>();
   return ok(updated);
