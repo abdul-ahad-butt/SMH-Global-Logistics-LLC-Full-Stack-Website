@@ -125,7 +125,7 @@ export default function AdminDashboard() {
               <Tooltip
                 contentStyle={{ borderRadius: 8, border: '1px solid #e2e8f0', fontSize: 12 }}
                 formatter={(v) => [v, 'Quotes']}
-                labelFormatter={(label) => new Date(label).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                labelFormatter={(label) => new Date(label as string).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
               />
               <Bar dataKey="count" fill="#1e1b4b" radius={[4, 4, 0, 0]} />
             </BarChart>

@@ -1,4 +1,4 @@
-import { useParams, useNavigate, Link } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { ArrowLeft, Save } from 'lucide-react'
 import { quotesApi } from '../../services/api.js'
@@ -10,7 +10,6 @@ const STATUSES: QuoteStatus[] = ['new', 'reviewing', 'quoted', 'accepted', 'decl
 
 export default function AdminQuoteDetail() {
   const { id } = useParams<{ id: string }>()
-  const navigate = useNavigate()
   const qc = useQueryClient()
 
   const { data: quote, isLoading } = useQuery({

@@ -14,8 +14,10 @@ import type {
   Admin,
 } from '../types/index.js';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787';
+
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: `${API_URL.replace(/\/+$/, '')}/api`,
   withCredentials: true,
   headers: { 'Content-Type': 'application/json' },
 });

@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { ArrowLeft, Save, Plus, MapPin, Clock } from 'lucide-react'
 import { shipmentsApi } from '../../services/api.js'
-import type { ShipmentStatus } from '../../types/index.js'
+import type { ShipmentStatus, Shipment } from '../../types/index.js'
 import toast from 'react-hot-toast'
 
 const STATUSES: ShipmentStatus[] = [
@@ -21,7 +21,7 @@ export default function AdminShipmentDetail() {
     enabled: !!id,
   })
 
-  const [editData, setEditData] = useState<Partial<typeof shipment>>({})
+  const [editData, setEditData] = useState<Partial<Shipment>>({})
   const [newEvent, setNewEvent] = useState({ status: '', location: '', description: '' })
   const [showEventForm, setShowEventForm] = useState(false)
 
